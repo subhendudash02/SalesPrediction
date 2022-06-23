@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Cantarell@1&display=swap');
+
+body {
+    font-family: 'Cantarell', sans-serif;
+    margin: 2%;
+}
+
+#heading {
+    text-align: center;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 1%;
+}
+
+input[type="submit"] {
+    padding: 10px;
+    border: 1px solid black;
+    margin: 1%;
+    cursor: pointer;
+}
+
+#fig {
+    border: 1px solid black;
+}
+
+#graphs {
+    margin: auto;
+}
