@@ -5,20 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
+    <link rel="stylesheet" href="../static/index.css">
 </head>
 <body>
+    <h1 id="heading">Sales Prediction</h1>
     <form action="{{url_for('home')}}" method="post">
         <label for="product">Parameters to consider: </label>
         <input type="text" name="product" placeholder="enter TV/Newspaper/Radio"><br>
         <label for="test_data">Test data percentage: </label>
         <input type="text" name="test_data" placeholder="10 to 40"><br>
-        <input type="submit" value="Determine"></button>
+        <input type="submit" value="Determine">
     </form>
 
-    {% if not fig %}
-        <p>Graph to be shown here</p>
-    {% else %}
-    {{fig | safe}}
-    {%endif%}
+    <div id="result">
+        <strong>Accuracy: </strong> {{accuracy}}
+        <strong>r2 error: </strong> {{r2}}
+    </div>
+
+    <div id="fig">
+        {% if not fig %}
+            <p>Graph to be shown here</p>
+        {% else %}
+            <div id="graphs">{{fig | safe}}</div>
+        {%endif%}
+    </div>
 </body>
 </html>
