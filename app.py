@@ -40,7 +40,8 @@ def home():
 
 @app.route("/data")
 def data():
-    return render_template("data.html", data=csv)
+    arr = np.array(csv)
+    return render_template("data.html", data=arr)
 
 if __name__ == "__main__":
     app.run(debug=True)
