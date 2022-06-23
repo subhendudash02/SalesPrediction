@@ -10,19 +10,27 @@
 </head>
 <body>
     <h1 id="heading">Sales Prediction</h1>
-    <form action="{{url_for('home')}}" method="post">
-        <label for="product">Parameters to consider: </label>
-        <input type="text" name="product" placeholder="enter TV/Newspaper/Radio"><br>
-        <label for="test_data">Test data percentage: </label>
-        <input type="text" name="test_data" placeholder="10 to 40"><br>
-        <input type="submit" value="Determine">
-    </form>
-
-    <div id="result">
-        <strong>Accuracy: </strong> {{accuracy}}
-        <strong>r2 error: </strong> {{r2}}
+    <div class="upper-box">
+        <form action="{{url_for('home')}}" method="post">
+            <label for="product">Parameters to consider: </label>
+            <input type="text" name="product" placeholder="enter TV/Newspaper/Radio" required><br>
+            <label for="test_data">Test data percentage: </label>
+            <input type="text" name="test_data" placeholder="10 to 40" required><br>
+            <input type="submit" value="Determine">
+        </form>
+    
+        <div id="result">
+            {% if r2 %}
+                <strong>X: </strong> {{getX}}<br>
+                <strong>y: </strong> Sales<br>
+                <strong>Train %: </strong> {{100 - test}}%<br>
+                <strong>Test %: </strong> {{test}}%<br>
+                <strong>r2 score: </strong> {{r2}}<br>
+            {% endif %}
+            <p>Visit <a href="{{url_for('data')}}">dataset</a></p>
+        </div>
     </div>
-
+    
     <div id="fig">
         {% if not fig %}
             <p>Graph to be shown here</p>

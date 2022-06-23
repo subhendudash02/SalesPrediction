@@ -21,7 +21,6 @@ def linear_reg(X, test):
     
     pred = lr.predict(np.array(X_test).reshape(-1, 1))
 
-    accuracy = lr.score(np.array(X_test).reshape(-1, 1), y_test)
     r2 = r2_score(y_test, pred)
 
     #plots
@@ -34,7 +33,7 @@ def linear_reg(X, test):
     axes[1].plot(X_test, m*X_test + c, 'r')
     axes[1].title.set_text("Test Data")
     html_str = mpld3.fig_to_html(fig)
-    return html_str, accuracy, r2
+    return html_str, r2
     
 
 app = Flask(__name__)
@@ -45,7 +44,7 @@ def home():
         getX = request.form['product']
         test = request.form['test_data']
         lr = linear_reg(getX, test)
-        return render_template("index.html", fig=lr[0], accuracy=lr[1], r2=lr[2])
+        return render_template("index.html", fig=lr[0], r2=lr[1], getX=getX, test=int(test))
     return render_template("index.html")
 
 @app.route("/data")
