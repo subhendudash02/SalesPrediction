@@ -9,12 +9,16 @@
 <body>
     <form action="{{url_for('home')}}" method="post">
         <label for="product">Parameters to consider: </label>
-        <input type="text" name="product" placeholder="enter TV/Newspaper/Sales"><br>
+        <input type="text" name="product" placeholder="enter TV/Newspaper/Radio"><br>
         <label for="test_data">Test data percentage: </label>
         <input type="text" name="test_data" placeholder="10 to 40"><br>
         <input type="submit" value="Determine"></button>
     </form>
-    {{data | safe}}
 
+    {% if not fig %}
+        <p>Graph to be shown here</p>
+    {% else %}
+    {{fig | safe}}
+    {%endif%}
 </body>
 </html>

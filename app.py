@@ -1,10 +1,12 @@
 from flask import Flask, url_for, render_template, request, redirect
-import load_data
 import matplotlib.pyplot as plt
 import mpld3
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import numpy as np
+import pandas as pd
+
+csv = pd.DataFrame(pd.read_csv("advertising.csv"))
 
 def linear_reg(X, test):
     test = int(test)
@@ -14,23 +16,24 @@ def linear_reg(X, test):
     c = lr.intercept_
     m = lr.coef_
     # pred = lr.predict(np.array(X_test).reshape(-1, 1))
-    fig, axes = plt.subplots()
-    axes.scatter(X_train, y_train)
-    axes.plot(X_train, m*X_train + c, 'r')
+    fig, axes = plt.subplots(1, 2, figsize=(10, 6))
+    print(axes, axes.flat)
+    axes[0].scatter(X_train, y_train)
+    axes[0].plot(X_train, m*X_train + c, 'r')
+    axes[1].scatter(X_test, y_test)
+    axes[1].plot(X_test, m*X_test + c, 'r')
     html_str = mpld3.fig_to_html(fig)
     return html_str
     
 
 app = Flask(__name__)
 
-csv = load_data.data
-
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
         getX = request.form['product']
         test = request.form['test_data']
-        return render_template("new.html", fig=linear_reg(getX, test))
+        return render_template("index.html", fig=linear_reg(getX, test))
     return render_template("index.html")
 
 if __name__ == "__main__":
