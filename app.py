@@ -20,8 +20,10 @@ def linear_reg(X, test):
     print(axes, axes.flat)
     axes[0].scatter(X_train, y_train)
     axes[0].plot(X_train, m*X_train + c, 'r')
+    axes[0].title.set_text("Training Data")
     axes[1].scatter(X_test, y_test)
     axes[1].plot(X_test, m*X_test + c, 'r')
+    axes[1].title.set_text("Test Data")
     html_str = mpld3.fig_to_html(fig)
     return html_str
     
@@ -35,6 +37,10 @@ def home():
         test = request.form['test_data']
         return render_template("index.html", fig=linear_reg(getX, test))
     return render_template("index.html")
+
+@app.route("/data")
+def data():
+    return render_template("data.html", data=csv)
 
 if __name__ == "__main__":
     app.run(debug=True)
